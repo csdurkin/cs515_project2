@@ -160,7 +160,7 @@ class AdventureGame:
             print(f'There\'s no {player_argument} anywhere.')
 
 
-    def cmd_go(self, player_argument):
+    def cmd_go(self, player_argument = None):
 
         """go ..."""
         
