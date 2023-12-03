@@ -167,7 +167,19 @@ class AdventureGame:
         if not player_argument: 
             print('Sorry, you need to \'go\' somewhere.')
 
-        elif (player_argument in self.game_map[self.current_room].get("exits", [])):
+        if player_argument == 'n':
+            player_argument = 'north'
+
+        if player_argument == 's':
+            player_argument = 'south'
+
+        if player_argument == 'e':
+            player_argument = 'east'
+
+        if player_argument == 'w':
+            player_argument = 'west'
+
+        if (player_argument in self.game_map[self.current_room].get("exits", [])):
             self.current_room = self.game_map[self.current_room]["exits"][player_argument]
             self.display_flag = True
             print(f'You go {player_argument}.', end='\n\n')
@@ -215,7 +227,7 @@ class AdventureGame:
         self.cmd_go('north')
 
 
-    def cmd_quit(self):
+    def cmd_quit(self, player_argument = None):
         
         """quit [shortcut: q]"""
         
@@ -264,6 +276,7 @@ class AdventureGame:
                 print('KeyboardInterrupt')
                 print('Goodbye!')
                 sys.exit(1)
+
 
 if __name__ == "__main__":
     
