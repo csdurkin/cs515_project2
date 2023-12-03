@@ -149,7 +149,7 @@ class AdventureGame:
         """get ..."""
         
         if player_argument == None:
-            print('Sorry, you neet to \'get\' something.')
+            print('Sorry, you need to \'get\' something.')
         
         elif player_argument in self.game_map[self.current_room].get("items", []):
             self.game_map[self.current_room]["items"].remove(player_argument)
