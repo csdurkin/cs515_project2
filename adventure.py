@@ -165,7 +165,7 @@ class AdventureGame:
         """go ..."""
         
         if not player_argument: 
-            print('Sorry, you need to \'go\' somewhere.')
+            print("Sorry, you need to 'go' somewhere.")
 
         if player_argument == 'n':
             player_argument = 'north'
