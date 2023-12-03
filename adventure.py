@@ -1,6 +1,7 @@
 import sys
 import json
 
+
 class AdventureGame:
 
     #__init__: Initializes the AdventureGame object, sets initial state of play
@@ -21,13 +22,15 @@ class AdventureGame:
             with open(map_filename, 'r') as file:
                 
                 self.game_map = json.load(file)
-                self.validate_map()
+                return self.validate_map()
 
         except FileNotFoundError:
             print(f"Error: Map file '{map_filename}' not found.")
+            return False
 
         except json.JSONDecodeError:
             print(f"Error: Invalid JSON format in map file '{map_filename}'.")
+            return False
 
 
     def validate_map(self):
@@ -35,9 +38,8 @@ class AdventureGame:
         room_validation = True
 
         if not self.game_map:
-            print("Error: There is no game map initialized.")
             room_validation = False
-            return False
+            raise ValueError("Error: There is no game map initialized.")
        
         for room_id, room_data in enumerate(self.game_map):  
             
@@ -47,26 +49,29 @@ class AdventureGame:
             if missing_properties:
                 room_validation = False
                 for property in missing_properties:
-                    print(f'Error: The room {room_id} is missing {property} property.')
+                    print(f'> Error: The room {room_id} is missing {property} property.')
                 
-        if room_validation:
-           return True
-        
-        else:
-            return False
+        return room_validation
 
 
     def display_room(self):
-        
-        print(f'> {self.game_map[self.current_room].get("name", "")}\n')
-        
-        print(self.game_map[self.current_room].get("desc", ""), "\n")
-        
-        if self.game_map[self.current_room].get("items", None):
-            print("Items:", ", ".join(self.game_map[self.current_room].get("items", ["No Items"])), "\n")
-        
-        if self.game_map[self.current_room].get("exits", None):
-            print("Exits:", ' '.join(self.game_map[self.current_room].get("exits", {}).keys() or ["No Exits"]), "\n")
+    
+        try:
+            
+            room_data = self.game_map.get(self.current_room) or self.game_map[self.current_room]
+            
+            print(f'> {room_data.get("name", "")}\n')
+            
+            print(room_data.get("desc", ""), "\n")
+
+            if room_data.get("items", None):
+                print("Items:", ", ".join(room_data.get("items", ["No Items"])), "\n")
+
+            if room_data.get("exits", None):
+                print("Exits:", ' '.join(room_data.get("exits", {}).keys() or ["No Exits"]), "\n")
+
+        except KeyError:
+            print(f"> Error: The room {self.current_room} is missing some properties.")
 
 
     def parse_input(self, player_input):
@@ -107,17 +112,17 @@ class AdventureGame:
                 player_argument = split_input[1]
             elif len(split_input) > 2:
                 player_argument = split_input[1]
-                print(f'Only one word can follow an input command.\nIn this case, the input"{player_command} {player_argument}" will be attempted.') 
+                print(f'> Only one word can follow an input command.\nIn this case, the input"{player_command} {player_argument}" will be attempted.') 
             else: 
                 player_argument = None
             
             if player_command in commands_dict:
                 commands_dict[player_command](player_argument)
             else:
-                print("Invalid command provided. Type 'help' for a list of commands.")
+                print("> Invalid command provided. Type 'help' for a list of commands.")
 
         else:
-            print("Please provide a valid command. Type 'help' for a list of commands.")
+            print("> Please provide a valid command. Type 'help' for a list of commands.")
 
 
     def cmd_drop(self, player_argument):
@@ -275,6 +280,4 @@ if __name__ == "__main__":
             
     except ValueError as e:
         print(f'Error: {str(e)}')
-        
-    except InvalidMapError as e:
-        print(f'Error: {str(e)}')
+
