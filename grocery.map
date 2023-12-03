@@ -1,0 +1,31 @@
+[
+ {"name": "Produce Section", 
+  "desc": "You are in the Produce Section, filled with fresh fruits and vegetables.",
+  "exits": { "north": 1, "east": 3 },
+  "items": ["apple", "banana", "carrot"]
+ }
+,
+ {"name": "Dairy Aisle", 
+  "desc": "Welcome to the Dairy Aisle, featuring a variety of dairy products.",
+  "exits": { "east": 2, "south": 0 },
+  "items": ["milk", "cheese", "yogurt"]
+ }
+,
+ {"name": "Bakery", 
+  "desc": "You find yourself in the Bakery, surrounded by the delightful aroma of freshly baked goods.",
+  "exits": { "west": 1, "south": 3 },
+  "items": ["bread", "croissant", "cookie"]
+ }
+,
+ {"name": "Canned Goods",
+  "desc": "Explore the Canned Goods section, offering a variety of preserved food items.",
+  "exits": { "north": 2, "west": 0 },
+  "items": ["soup", "beans", "tomatoes"]
+ }
+,
+ {"name": "Dark and Spooky Aisle",
+  "desc": "This aisle is dark and spooky, with shadows playing tricks on your senses.",
+  "exits": {},
+  "items": []
+ }
+]
