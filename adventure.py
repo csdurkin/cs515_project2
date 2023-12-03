@@ -216,7 +216,7 @@ class AdventureGame:
         """quit [shortcut: q]"""
         
         print('Goodbye!')
-        exit()
+        sys.exit(0)
 
 
     def cmd_south(self, player_argument):
@@ -259,14 +259,22 @@ class AdventureGame:
                 print('  ...')
                 print('KeyboardInterrupt')
                 print('Goodbye!')
-                exit()
+                sys.exit(1)
 
 if __name__ == "__main__":
     
-    if len(sys.argv) != 2:
-        print("Usage: python3 adventure.py [map filename]")
+    try:
+    
+        if len(sys.argv) != 2:
+            print("Usage: python3 adventure.py [map filename]")
 
-    else:
-        game = AdventureGame()
-        game.load_world(sys.argv[1])
-        game.loop_game()
+        else:
+            game = AdventureGame()
+            game.load_world(sys.argv[1])
+            game.loop_game()
+            
+    except ValueError as e:
+        print(f'Error: {str(e)}')
+        
+    except InvalidMapError as e:
+        print(f'Error: {str(e)}')
