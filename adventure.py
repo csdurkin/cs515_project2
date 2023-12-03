@@ -1,7 +1,6 @@
 import sys
 import json
 
-
 class AdventureGame:
 
     #__init__: Initializes the AdventureGame object, sets initial state of play
@@ -60,15 +59,15 @@ class AdventureGame:
             
             room_data = self.game_map[self.current_room]
             
-            print(f'> {room_data.get("name", "")}\n')
+            print(f'> {room_data.get("name", "")}', end='\n\n')
             
-            print(room_data.get("desc", ""), "\n")
-
+            print(room_data.get("desc", ""), end='\n\n')
+            
             if room_data.get("items", None):
-                print("Items:", ", ".join(room_data.get("items", ["No Items"])), "\n")
-
+                print("Items:", ", ".join(room_data.get("items", ["No Items"])), end='\n\n')
+          
             if room_data.get("exits", None):
-                print("Exits:", ' '.join(room_data.get("exits", {}).keys() or ["No Exits"]), "\n")
+                print("Exits:", ' '.join(room_data.get("exits", {}).keys() or ["No Exits"]), end='\n\n')
 
         except KeyError:
             print(f"> Error: The room {self.current_room} is missing some properties.")
@@ -171,7 +170,7 @@ class AdventureGame:
         elif (player_argument in self.game_map[self.current_room].get("exits", [])):
             self.current_room = self.game_map[self.current_room]["exits"][player_argument]
             self.display_flag = True
-            print(f'You go {player_argument}.\n')
+            print(f'You go {player_argument}.', end='\n\n')
 
         else:
             print(f'There\'s no way to go {player_argument}.')
