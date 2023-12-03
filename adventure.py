@@ -167,7 +167,7 @@ class AdventureGame:
         if not player_argument: 
             print("Sorry, you need to 'go' somewhere.")
 
-        if player_argument == 'n':
+        """if player_argument == 'n':
             player_argument = 'north'
 
         if player_argument == 's':
@@ -177,7 +177,7 @@ class AdventureGame:
             player_argument = 'east'
 
         if player_argument == 'w':
-            player_argument = 'west'
+            player_argument = 'west'"""
 
         if (player_argument in self.game_map[self.current_room].get("exits", [])):
             self.current_room = self.game_map[self.current_room]["exits"][player_argument]
