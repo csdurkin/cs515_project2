@@ -57,17 +57,25 @@ class AdventureGame:
 
 
     def display_room(self):
-        print(">", self.game_map[self.current_room].get("name", ""))
-        print("\nCurrent Room Description:", self.game_map[self.current_room].get("desc", ""))
-        print("\nExits:", ' '.join(self.game_map[self.current_room].get("exits", {}).keys() or ["No Exits"]))
-        print("\nItems:", ", ".join(self.game_map[self.current_room].get("items", ["No Items"])))
+        
+        print(f'> {self.game_map[self.current_room].get("name", "")}\n')
+        
+        print(self.game_map[self.current_room].get("desc", ""), "\n")
+        
+        if self.game_map[self.current_room].get("items", None):
+            print("Items:", ", ".join(self.game_map[self.current_room].get("items", ["No Items"])), "\n")
+        
+        if self.game_map[self.current_room].get("exits", None):
+            print("Exits:", ' '.join(self.game_map[self.current_room].get("exits", {}).keys() or ["No Exits"]), "\n")
 
 
     def parse_input(self, player_input):
         
         commands_dict = {
             'drop': self.cmd_drop,
-            'd': self.cmd_drop,  
+            'd': self.cmd_drop,
+            'east': self.cmd_east,
+            'e': self.cmd_east,  
             'get': self.cmd_get,
             'go': self.cmd_go,
             'help': self.cmd_help,
@@ -76,8 +84,14 @@ class AdventureGame:
             'inventory': self.cmd_inventory,
             'l': self.cmd_look,
             'look': self.cmd_look,
+            'north': self.cmd_north,
+            'n': self.cmd_north,
             'q': self.cmd_quit,
             'quit': self.cmd_quit,
+            'south': self.cmd_south,
+            's': self.cmd_south,
+            'west': self.cmd_west,
+            'w': self.cmd_west,
         }
 
         split_input = player_input.strip().lower().split()        #strip: removes white space before/after input; lower(): to make case-insensitiv
@@ -119,17 +133,27 @@ class AdventureGame:
             print(f'No {player_argument} can be found in your inventory.')
 
 
+    def cmd_east(self, player_argument):
+        
+        """east [shortcut: e]"""
+
+        self.cmd_go('east')
+
+
     def cmd_get(self, player_argument):
 
         """get ..."""
         
-        if player_argument in self.game_map[self.current_room].get("items", []):
+        if player_argument == None:
+            print('Sorry, you neet to \'get\' something.')
+        
+        elif player_argument in self.game_map[self.current_room].get("items", []):
             self.game_map[self.current_room]["items"].remove(player_argument)
             self.inventory.append(player_argument)
-            print(f'You\'ve added the {player_argument} to your inventory.')
+            print(f'You pick up the {player_argument}.')
 
         else:
-            print(f'No {player_argument} can be found in this room.')
+            print(f'There\'s no {player_argument} anywhere.')
 
 
     def cmd_go(self, player_argument):
@@ -137,15 +161,15 @@ class AdventureGame:
         """go ..."""
         
         if not player_argument: 
-            print('You need to go somewhere.')
+            print('Sorry, you need to \'go\' somewhere.')
 
         elif (player_argument in self.game_map[self.current_room].get("exits", [])):
             self.current_room = self.game_map[self.current_room]["exits"][player_argument]
             self.display_flag = True
-            print(f'You head {player_argument}.')
+            print(f'You go {player_argument}.\n')
 
         else:
-            print(f'You cannot head {player_argument}.')
+            print(f'There\'s no way to go {player_argument}.')
 
 
     def cmd_help(self, player_argument):
@@ -165,10 +189,12 @@ class AdventureGame:
         """inventory [shortcut: i]"""
 
         if self.inventory: 
-            print(self.inventory)
+            print('Inventory:')
+            for item in self.inventory:
+                print(' ', item)
 
         else:
-            print('No items inventory.')
+            print('You\'re not carrying anything.')
 
 
     def cmd_look(self, player_argument):
@@ -178,12 +204,33 @@ class AdventureGame:
         self.display_room()
 
 
+    def cmd_north(self, player_argument):
+        
+        """north [shortcut: n]"""
+
+        self.cmd_go('north')
+
+
     def cmd_quit(self):
         
         """quit [shortcut: q]"""
         
-        print("You're trap here forever.\n\nJust kidding. Goodbye!")
+        print('Goodbye!')
         exit()
+
+
+    def cmd_south(self, player_argument):
+        
+        """south [shortcut: s]"""
+
+        self.cmd_go('south')  
+
+
+    def cmd_west(self, player_argument):
+        
+        """west [shortcut: w]"""
+
+        self.cmd_go('west')      
 
 
     def loop_game(self):
@@ -205,10 +252,13 @@ class AdventureGame:
                     continue
 
             except EOFError:
-                print("You're never getting out of this grocery store.\n\nUnless you type 'quit' to exit.")
+                print('\nUse \'quit\' to exit.')
 
             except KeyboardInterrupt:
-                print("\nGame ended by keyboard interrupt. Goodbye!")
+                print('Traceback (most recent call last):')
+                print('  ...')
+                print('KeyboardInterrupt')
+                print('Goodbye!')
                 exit()
 
 if __name__ == "__main__":
