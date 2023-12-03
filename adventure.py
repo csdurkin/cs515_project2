@@ -58,7 +58,7 @@ class AdventureGame:
     
         try:
             
-            room_data = self.game_map.get(self.current_room) or self.game_map[self.current_room]
+            room_data = self.game_map[self.current_room]
             
             print(f'> {room_data.get("name", "")}\n')
             
