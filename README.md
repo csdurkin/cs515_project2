@@ -68,3 +68,7 @@ As I was working alone, I needed to implement three extensions fully. I did star
 - 'q' for 'quit'
 - 's' for 'south'
 - 'w' for 'west'
+
+***New Map***
+
+I look forward to the semester being over so I can bake holiday cookies, and therefore, I implemented a map that walks the player through the grocery store. All of the above functionalities work with this map.
