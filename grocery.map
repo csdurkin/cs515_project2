@@ -19,7 +19,7 @@
 ,
  {"name": "Canned Goods",
   "desc": "Explore the Canned Goods section, offering a variety of preserved food items.",
-  "exits": {"west": 1},
+  "exits": {"east": 1},
   "items": ["soup", "beans", "tomatoes"]
  }
 ,
