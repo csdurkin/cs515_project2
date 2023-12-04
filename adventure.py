@@ -1,3 +1,4 @@
+
 import sys
 import json
 
@@ -170,16 +171,16 @@ class AdventureGame:
         elif len(player_argument) == 1:
 
             if player_argument == 'n':
-                cmd_go('north')
+                self.cmd_go('north')
 
             elif player_argument == 's':
-                cmd_go('south')
+                self.cmd_go('south')
 
             elif player_argument == 'e':
-                cmd_go('east')
+                self.cmd_go('east')
 
             elif player_argument == 'w':
-                cmd_go('west')
+                self.cmd_go('west')
 
             else:
                 print(f'There\'s no way to go {player_argument}.')
