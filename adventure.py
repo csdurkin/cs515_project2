@@ -167,6 +167,23 @@ class AdventureGame:
         if not player_argument: 
             print('Sorry, you need to \'go\' somewhere.')
 
+        elif len(player_argument) == 1:
+
+            if player_argument == 'n':
+                cmd_go('north')
+
+            elif player_argument == 's':
+                cmd_go('south')
+
+            elif player_argument == 'e':
+                cmd_go('east')
+
+            elif player_argument == 'w':
+                cmd_go('west')
+
+            else:
+                print(f'There\'s no way to go {player_argument}.')
+
         elif (player_argument in self.game_map[self.current_room].get("exits", [])):
             self.current_room = self.game_map[self.current_room]["exits"][player_argument]
             self.display_flag = True
