@@ -1,4 +1,3 @@
-
 import sys
 import json
 
@@ -168,24 +167,10 @@ class AdventureGame:
         if not player_argument: 
             print('Sorry, you need to \'go\' somewhere.')
 
-        elif:
-            
-            if player_argument == 'n':
-                player_argument = 'north'
-    
-            if player_argument == 's':
-                player_argument = 'south'
-    
-            if player_argument == 'e':
-                player_argument = 'east'
-    
-            if player_argument == 'w':
-                player_argument = 'west'
-    
-            if (player_argument in self.game_map[self.current_room].get("exits", [])):
-                self.current_room = self.game_map[self.current_room]["exits"][player_argument]
-                self.display_flag = True
-                print(f'You go {player_argument}.', end='\n\n')
+        elif (player_argument in self.game_map[self.current_room].get("exits", [])):
+            self.current_room = self.game_map[self.current_room]["exits"][player_argument]
+            self.display_flag = True
+            print(f'You go {player_argument}.', end='\n\n')
 
         else:
             print(f'There\'s no way to go {player_argument}.')
